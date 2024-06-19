@@ -31,3 +31,23 @@ jobs:
       - name: Push Docker image # 도커 이미지를 도커 허브로 푸시
         run: docker push leegh963/docker
 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Add known hosts
+        run: ssh-keyscan -H ${{ secrets.AWS_INSTANCE_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to AWS EC2
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: |
+          ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_INSTANCE_IP }} << 'EOF'
+            sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+            sudo docker pull leegh963/docker
+            sudo docker stop $(docker ps -a -q)
+            sudo docker run -d -p 8080:8080 leegh963/docker
+          EOF
