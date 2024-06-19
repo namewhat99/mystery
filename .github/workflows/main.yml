@@ -61,5 +61,9 @@ jobs:
             sudo docker pull leegh963/docker
             sudo docker stop $(sudo docker ps -a -q)
             sudo docker rm $(sudo docker ps -a -q)
-            sudo docker run -p 8080:8080 leegh963/docker
+            sudo docker run -p 8080:8080 \
+              -e DATABASE_URL=jdbc:mysql://172.31.2.255:3306/test \
+              -e DATABASE_USERNAME=test \ 
+              -e DATABASE_PASSWORD=1234 \
+              leegh963/docker
           EOF
