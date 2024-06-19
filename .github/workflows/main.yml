@@ -27,25 +27,36 @@ jobs:
 
       - name: docker login # 도커 로그인
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-        
+
       - name: Push Docker image # 도커 이미지를 도커 허브로 푸시
         run: docker push leegh963/docker
 
+      ## Github Action 환경에서 SSH 키를 이용해서 AWS EC2 인스턴스에 접속할 수 있게 준비하는 부분이다.
       - name: Set up SSH
         run: |
-          mkdir -p ~/.ssh
+          mkdir -p ~/.ssh 
           echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+      # .ssh 폴더를 생성한다, 이후 .ssh 폴더 내에 id_rsa 라는 이름의 파일로 SSH 비공개 키를 저장한다
+      # 이후 파일 권한을 600 으로 설정
 
+
+      ## SSH 키스캔을 통해 AWS EC2 인스턴스의 공개 호스트 키를 수집한다. 이 경우, 현재 내 서버가 띄워진
+      ## 인스턴스의 공개 호스트 키 수집
+      ## 그리고 이 정보를 .ssh 의 known_hosts 에 추가한다.
       - name: Add known hosts
         run: ssh-keyscan -H ${{ secrets.AWS_INSTANCE_IP }} >> ~/.ssh/known_hosts
 
+
+      ## SSH 키를 이용해서 EC2 에 접속하고 도커 이미지를 pull 한 이후 도커 컨테이너를 띄워 어플리케이션 실행
+      ## 먼저 ssh 키를 이용해서 서버 인스턴스에 접속
+      ## 도커에 로그인 한 후, 이미지 pull , 현재 도커 컨테이너를 stop 한 이후 바뀐 이미지로 다시 컨테이너를 띄운다.
       - name: Deploy to AWS EC2
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_INSTANCE_IP }} << 'EOF'
+          ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_INSTANCE_IP }} << 'EOF' 
             sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
             sudo docker pull leegh963/docker
             sudo docker stop $(docker ps -a -q)
