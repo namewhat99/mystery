@@ -26,8 +26,8 @@ jobs:
         run: docker build -t leegh963/docker .
 
       - name: docker login # 도커 로그인
-        run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        
       - name: Push Docker image # 도커 이미지를 도커 허브로 푸시
         run: docker push leegh963/docker
 
