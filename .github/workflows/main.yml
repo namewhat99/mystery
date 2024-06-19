@@ -1,4 +1,4 @@
-name: CI / CD
+name: CI
 
 on:
   push:
@@ -46,8 +46,8 @@ jobs:
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_INSTANCE_IP }} << 'EOF'
-            docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-            docker pull leegh963/docker
-            docker stop $(docker ps -a -q)
-            docker run -d -p 8080:8080 leegh963/docker
+            sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+            sudo docker pull leegh963/docker
+            sudo docker stop $(docker ps -a -q)
+            sudo docker run -d -p 8080:8080 leegh963/docker
           EOF
