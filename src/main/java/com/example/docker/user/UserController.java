@@ -1,5 +1,6 @@
 package com.example.docker.user;
 
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,3 +20,5 @@ public class UserController {
         return this.userService.getUser();
     }
 }
+
+

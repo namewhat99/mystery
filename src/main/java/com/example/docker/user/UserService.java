@@ -2,6 +2,7 @@ package com.example.docker.user;
 
 import org.springframework.stereotype.Service;
 
+import java.sql.DriverManager;
 import java.util.List;
 
 @Service
@@ -17,4 +18,5 @@ public class UserService {
         return this.userRepository.findAll();
 
     }
+
 }
