@@ -27,7 +27,7 @@ public class gptService {
 
         // JSON 객체 생성
         JsonObject requestBody = new JsonObject();
-        requestBody.addProperty("model", "gpt-3.5-turbo");
+        requestBody.addProperty("model", "gpt-4o");
         requestBody.addProperty("stream" , true);
 
         JsonArray messages = new JsonArray();
