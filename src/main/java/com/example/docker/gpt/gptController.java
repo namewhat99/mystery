@@ -15,7 +15,7 @@ public class gptController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(value = "gpt" , produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    //@GetMapping(value = "gpt" , produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> getGptRequest(){
         return this.gptService.sendRequestToGpt();
     }
