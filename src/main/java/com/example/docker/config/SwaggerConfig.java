@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "뭐먹을까 API Docs",
-                description = "뭐먹을까의 API 문서이다.",
+                title = "추리게임 API Docs",
+                description = "추리게임 DM API 문서.",
                 version = "1.0"
         )
 )

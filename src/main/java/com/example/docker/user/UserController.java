@@ -15,7 +15,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
     public List<User> getUser(){
         return this.userService.getUser();
     }

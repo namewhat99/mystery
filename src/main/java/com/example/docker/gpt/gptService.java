@@ -33,7 +33,7 @@ public class gptService {
         JsonArray messages = new JsonArray();
         JsonObject message = new JsonObject();
         message.addProperty("role", "user");
-        message.addProperty("content", "Who won the world series in 2020?");
+        message.addProperty("content", "Can you write a new novel about crime?");
         messages.add(message);
 
         requestBody.add("messages", messages);
