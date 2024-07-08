@@ -7,7 +7,12 @@ import lombok.Setter;
 @Setter
 public class ResultDto {
 
-    private String resultContent;
-    private String resultImage;
-    private String reason;
+    private String resultContent1;
+    private String resultImage1;
+    private String resultContent2;
+    private String resultImage2;
+    private String eventReason;
+    private String criminal;
+    private String criminalImage;
+
 }

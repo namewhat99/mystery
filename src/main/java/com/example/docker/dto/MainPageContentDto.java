@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class MainPageContentDto {
 
-    private String content;
-    private String backGroundImage;
+    private String weather;
+    private String place;
+    private String time;
 }
