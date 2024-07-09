@@ -28,6 +28,8 @@ public class Suspect {
     @Column(length = 500)
     private String suspectTrait;
 
+    private String suspectImage;
+
     private LocalDate date;
 
     @PrePersist

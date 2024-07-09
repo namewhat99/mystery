@@ -8,7 +8,7 @@ import lombok.Setter;
 public class SuspectResourcePostDto {
 
     private String suspectName;
-    private String suspectAge;
+    private Integer suspectAge;
     private String suspectGender;
     private String suspectOccupation;
     private String suspectTrait;

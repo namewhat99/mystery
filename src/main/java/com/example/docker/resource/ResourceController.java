@@ -22,7 +22,8 @@ public class ResourceController {
     @PostMapping("/suspect")
     @Operation(summary = "용의자 정보 받는 api")
     public ResponseDto<String> uploadSuspectResource(@RequestBody SuspectResourcePostDto suspectResourcePostDto){
-
+        String imageUrl = uploadFile(suspectResourcePostDto.getSuspectImage());
+        suspectResourcePostDto.setSuspectImage(imageUrl);
         return new ResponseDto<>(200 , "good" , null);
     }
 
@@ -47,20 +48,7 @@ public class ResourceController {
         return new ResponseDto<>(200 , "good" , null);
     }
 
-//    @PostMapping
-    public String uploadBase64File(@RequestBody Base64Request base64Request) {
-        if (base64Request.getFile() == null || base64Request.getFile().isEmpty()) {
-            return "not ok";
-        }
-        try {
-            byte[] decodedBytes = Base64.getDecoder().decode(base64Request.getFile());
-            InputStream inputStream = new ByteArrayInputStream(decodedBytes);
-            String fileUrl = s3Service.uploadFile(inputStream, generateUUID());
-            return "ok";
-        } catch (IllegalArgumentException e) {
-            return "not ok";
-        }
-    }
+
 
     private String uploadFile(String base64EncodedFile){
         try {
