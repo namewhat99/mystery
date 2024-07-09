@@ -14,5 +14,6 @@ public class ResultDto {
     private String eventReason;
     private String criminal;
     private String criminalImage;
+    private String criminalSaying;
 
 }
