@@ -1,5 +1,6 @@
 package com.example.docker.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -20,9 +21,14 @@ public class Suspect {
     private Long id;
 
     private String suspectName;
+
     private Integer suspectAge;
+
     private String suspectGender;
+
     private String suspectOccupation;
+
+    @Column(length = 500)
     private String suspectTrait;
 
     private LocalDate date;

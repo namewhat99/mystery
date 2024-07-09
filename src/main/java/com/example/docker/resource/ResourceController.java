@@ -3,7 +3,6 @@ package com.example.docker.resource;
 
 import com.example.docker.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
@@ -12,11 +11,11 @@ import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/resource")
-public class resourceController {
+public class ResourceController {
 
     private final S3Service s3Service;
 
-    public resourceController(S3Service s3Service) {
+    public ResourceController(S3Service s3Service) {
         this.s3Service = s3Service;
     }
 

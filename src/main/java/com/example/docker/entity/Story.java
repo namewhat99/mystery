@@ -1,5 +1,6 @@
 package com.example.docker.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,9 +22,17 @@ public class Story {
     private Long id;
 
     private String place;
+
     private String time;
+
     private String weather;
+
+    @Column(length = 500)
     private String storyLine;
+
+    @Column(length = 3000)
+    private String allStory;
+
     private LocalDate date;
 
 
