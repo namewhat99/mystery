@@ -30,4 +30,12 @@ public class UserService {
             return this.userRepository.save(user);
         }
     }
+
+    public Boolean checkUserChanceLeft(Long userId){
+
+        User user = this.userRepository.findUserById(userId);
+
+        if(user.getUsedChance() > 10) return false;
+        else return true;
+    }
 }
