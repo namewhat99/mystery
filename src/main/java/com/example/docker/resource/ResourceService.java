@@ -4,7 +4,6 @@ import com.example.docker.dto.StoryResourcePostDto;
 import com.example.docker.entity.Story;
 import com.example.docker.repository.StoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.joda.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,10 +16,9 @@ public class ResourceService {
 
     public void uploadStoryResource(StoryResourcePostDto storyResourcePostDto){
 
-        try{
             Boolean isStoryExists = this.storyRepository.existsStoryByDate(LocalDate.now());
 
-            if(isStoryExists){
+            if(!isStoryExists){
                 Story story = Story.builder()
                         .time(storyResourcePostDto.getTime())
                         .place(storyResourcePostDto.getPlace())
@@ -36,8 +34,5 @@ public class ResourceService {
                 throw new IllegalArgumentException("Story Exists");
             }
 
-        }catch (Exception e){
-            System.out.println("e = " + e);
-        }
     }
 }
