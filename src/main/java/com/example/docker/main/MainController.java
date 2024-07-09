@@ -39,6 +39,7 @@ public class MainController {
     @GetMapping("/image")
     @Operation(summary = "배경 이미지 api" , description = "배경 이미지 반환")
     public ResponseDto<ImageDto> findBackgroundImage(){
-        return new ResponseDto<ImageDto>(200 , "Good" , null);
+        ImageDto imageDto = this.mainService.getMainImage();
+        return new ResponseDto<ImageDto>(200 , "Good" , imageDto);
     }
 }

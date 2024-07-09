@@ -1,5 +1,6 @@
 package com.example.docker.main;
 
+import com.example.docker.dto.ImageDto;
 import com.example.docker.dto.MainPageContentDto;
 import com.example.docker.dto.MainPageStoryDto;
 import com.example.docker.dto.ResultDto;
@@ -32,6 +33,17 @@ public class MainService {
                 .weather(story.getWeather())
                 .time(story.getTime())
                 .place(story.getPlace())
+                .build();
+    }
+
+    public ImageDto getMainImage(){
+
+        Story story = this.storyRepository.findStoryByDate(LocalDate.now());
+
+        if(story == null) throw new EntityNotFoundException("오늘의 story 가 없습니다");
+
+        return ImageDto.builder()
+                .backgroundImageUrl(story.getMainBackGroundImage())
                 .build();
     }
 
