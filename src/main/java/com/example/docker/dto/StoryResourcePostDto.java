@@ -11,5 +11,6 @@ public class StoryResourcePostDto {
     private String time;
     private String place;
     private String mainBackgroundImage;
+    private String allStory;
     private String storyLine;
 }

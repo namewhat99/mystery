@@ -27,6 +27,8 @@ public class Story {
 
     private String weather;
 
+    private String mainBackGroundImage;
+
     @Column(length = 500)
     private String storyLine;
 
