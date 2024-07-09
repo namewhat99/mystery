@@ -4,6 +4,7 @@ package com.example.docker.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 
 import java.time.LocalDate;
 
@@ -19,4 +20,9 @@ public class User {
     private Integer usedChance;
 
     private LocalDate date;
+
+    @PrePersist
+    protected void onCreate() {
+        this.date = LocalDate.now();
+    }
 }

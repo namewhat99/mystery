@@ -66,9 +66,7 @@ public class ResourceController {
         try {
             byte[] decodedBytes = Base64.getDecoder().decode(base64EncodedFile);
             InputStream inputStream = new ByteArrayInputStream(decodedBytes);
-            String fileUrl = s3Service.uploadFile(inputStream, generateUUID());
-            System.out.println("fileUrl = " + fileUrl);
-            return "ok";
+            return s3Service.uploadFile(inputStream, generateUUID());
         } catch (IllegalArgumentException e) {
             return "not ok";
         }
