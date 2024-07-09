@@ -23,7 +23,7 @@ public class Story {
     private String place;
     private String time;
     private String weather;
-
+    private String storyLine;
     private LocalDate date;
 
 

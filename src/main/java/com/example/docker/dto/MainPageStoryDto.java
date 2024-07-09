@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class MainPageStoryDto {
 
-    private String content;
+    private String storyLine;
 }
