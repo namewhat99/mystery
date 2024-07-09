@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NicknameDuplicateDto {
-
-    private Boolean isDuplicated;
+public class UserNicknameDto {
+    private String nickname;
 }

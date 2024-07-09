@@ -1,24 +1,28 @@
 package com.example.docker.user;
 
 import com.example.docker.dto.ChanceCheckDto;
-import com.example.docker.dto.NicknameDuplicateDto;
+import com.example.docker.dto.UserAddDto;
 import com.example.docker.dto.ResponseDto;
+import com.example.docker.dto.UserNicknameDto;
+import com.example.docker.entity.User;
+import com.example.docker.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @GetMapping("/duplicate")
-    @Operation(summary = "닉네임 중복 체크")
-    public ResponseDto<NicknameDuplicateDto> checkNicknameDuplicate(){
-        return new ResponseDto<>(200 , "Good" , null);
+    private final UserService userService;
+
+    @PostMapping
+    @Operation(summary = "닉네임 등록" , description = "닉네임 중복이면 400 에러 던짐")
+    public ResponseDto<UserAddDto> checkNicknameDuplicate(@RequestBody UserNicknameDto userNicknameDto){
+        User user = this.userService.addDailyUser(userNicknameDto.getNickname());
+
+        return new ResponseDto<>(200 , "Good" , new UserAddDto(user.getId()));
     }
 
     @GetMapping("/chance")
