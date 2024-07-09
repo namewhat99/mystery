@@ -24,6 +24,7 @@ public class ResourceController {
     public ResponseDto<String> uploadSuspectResource(@RequestBody SuspectResourcePostDto suspectResourcePostDto){
         String imageUrl = uploadFile(suspectResourcePostDto.getSuspectImage());
         suspectResourcePostDto.setSuspectImage(imageUrl);
+        this.resourceService.uploadSuspectResource(suspectResourcePostDto);
         return new ResponseDto<>(200 , "good" , null);
     }
 
