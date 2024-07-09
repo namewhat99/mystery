@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/chance")
-    @Operation(summary = "심문 횟수 남았는지 여부 체크")
+    @Operation(summary = "심문 횟수 남았는지 여부 체크" , description = "심문 횟수 초과로 심문하면 400 에러 던짐 , 해당 id 를 갖는 유저 없으면 404 던짐")
     public ResponseDto<ChanceCheckDto> checkChanceLeft(@RequestParam(value = "userId" , required = true) Long userId){
         Boolean isChanceLeft = this.userService.checkUserChanceLeft(userId);
         ChanceCheckDto chanceCheckDto = new ChanceCheckDto(isChanceLeft);
