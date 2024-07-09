@@ -9,7 +9,7 @@ public class ResultResourcePostDto {
 
     private String criminal;
     private String criminalSaying;
-    private String resultReason;
+    private String caseBackground;
     private String resultContent1;
     private String resultContent2;
     private String resultImage1;

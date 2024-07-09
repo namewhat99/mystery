@@ -11,7 +11,7 @@ public class ResultDto {
     private String resultImage1;
     private String resultContent2;
     private String resultImage2;
-    private String eventReason;
+    private String caseBackground;
     private String criminal;
     private String criminalImage;
     private String criminalSaying;

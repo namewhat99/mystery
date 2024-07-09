@@ -23,11 +23,8 @@ public class Result {
     private String resultImageUrl1;
     private String resultContent2;
     private String resultImageUrl2;
-
     private String criminal;
-
-    private String eventReason;
-
     private String criminalSaying;
+    private String caseBackground;
     private LocalDate date;
 }

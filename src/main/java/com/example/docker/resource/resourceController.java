@@ -1,6 +1,8 @@
 package com.example.docker.resource;
 
 
+import com.example.docker.dto.*;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,31 @@ public class resourceController {
         this.s3Service = s3Service;
     }
 
-    @PostMapping
+    @PostMapping("/suspect")
+    @Operation(summary = "용의자 정보 받는 api")
+    public ResponseDto<String> uploadSuspectResource(@RequestBody SuspectResourcePostDto suspectResourcePostDto){
+        return new ResponseDto<>(200 , "good" , null);
+    }
+
+    @PostMapping("/evidence")
+    @Operation(summary = "증거 정보 받는 api")
+    public ResponseDto<String> uploadEvidenceResource(@RequestBody EvidenceResourcePostDto evidenceResourcePostDto){
+        return new ResponseDto<>(200 , "good" , null);
+    }
+
+    @PostMapping("/story")
+    @Operation(summary = "스토리 정보 받는 api")
+    public ResponseDto<String> uploadStoryResource(@RequestBody StoryResourcePostDto storyResourcePostDto){
+        return new ResponseDto<>(200 , "good" , null);
+    }
+
+    @PostMapping("/result")
+    @Operation(summary = "결과 정보 받는 api" , description = "resultContent 는 범인 이유  , resultImage 는 이유의 이미지")
+    public ResponseDto<String> uploadResultResource(@RequestBody ResultResourcePostDto resultResourcePostDto){
+        return new ResponseDto<>(200 , "good" , null);
+    }
+
+//    @PostMapping
     public String uploadBase64File(@RequestBody Base64Request base64Request) {
         if (base64Request.getFile() == null || base64Request.getFile().isEmpty()) {
             return "not ok";
