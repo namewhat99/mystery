@@ -49,6 +49,11 @@ public class ResourceController {
     @PostMapping("/result")
     @Operation(summary = "결과 정보 받는 api" , description = "resultContent 는 범인 이유  , resultImage 는 이유의 이미지")
     public ResponseDto<String> uploadResultResource(@RequestBody ResultResourcePostDto resultResourcePostDto){
+        String contentImage1 = uploadFile(resultResourcePostDto.getResultImage1());
+        String contentImage2 = uploadFile(resultResourcePostDto.getResultImage2());
+        resultResourcePostDto.setResultImage1(contentImage1);
+        resultResourcePostDto.setResultImage2(contentImage2);
+        this.resourceService.uploadResultResource(resultResourcePostDto);
         return new ResponseDto<>(200 , "good" , null);
     }
 

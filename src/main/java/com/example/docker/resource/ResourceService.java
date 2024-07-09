@@ -1,12 +1,15 @@
 package com.example.docker.resource;
 
 import com.example.docker.dto.EvidenceResourcePostDto;
+import com.example.docker.dto.ResultResourcePostDto;
 import com.example.docker.dto.StoryResourcePostDto;
 import com.example.docker.dto.SuspectResourcePostDto;
 import com.example.docker.entity.Evidence;
+import com.example.docker.entity.Result;
 import com.example.docker.entity.Story;
 import com.example.docker.entity.Suspect;
 import com.example.docker.repository.EvidenceRepository;
+import com.example.docker.repository.ResultRepository;
 import com.example.docker.repository.StoryRepository;
 import com.example.docker.repository.SuspectRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,28 @@ public class ResourceService {
     private final StoryRepository storyRepository;
     private final SuspectRepository suspectRepository;
     private final EvidenceRepository evidenceRepository;
+    private final ResultRepository resultRepository;
+
+    public void uploadResultResource(ResultResourcePostDto resultResourcePostDto){
+
+        Boolean isResultExists = this.resultRepository.existsResultByDate(LocalDate.now());
+
+        if(!isResultExists){
+            Result result = Result.builder()
+                    .resultContent1(resultResourcePostDto.getResultContent1())
+                    .resultImageUrl1(resultResourcePostDto.getResultImage1())
+                    .resultContent2(resultResourcePostDto.getResultContent2())
+                    .resultImageUrl2(resultResourcePostDto.getResultImage2())
+                    .caseBackground(resultResourcePostDto.getCaseBackground())
+                    .criminal(resultResourcePostDto.getCriminal())
+                    .criminalSaying(resultResourcePostDto.getCriminalSaying())
+                    .build();
+
+            this.resultRepository.save(result);
+        }else{
+            throw new IllegalArgumentException("오늘의 결과가 이미 추가되었습니다");
+        }
+    }
 
     public void uploadEvidenceResource(EvidenceResourcePostDto evidenceResourcePostDto){
 
