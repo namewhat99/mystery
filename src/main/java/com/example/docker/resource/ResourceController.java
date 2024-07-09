@@ -31,6 +31,9 @@ public class ResourceController {
     @PostMapping("/evidence")
     @Operation(summary = "증거 정보 받는 api")
     public ResponseDto<String> uploadEvidenceResource(@RequestBody EvidenceResourcePostDto evidenceResourcePostDto){
+        String imageUrl = uploadFile(evidenceResourcePostDto.getEvidenceImage());
+        evidenceResourcePostDto.setEvidenceImage(imageUrl);
+        this.resourceService.uploadEvidenceResource(evidenceResourcePostDto);
         return new ResponseDto<>(200 , "good" , null);
     }
 

@@ -26,10 +26,10 @@ public class Story {
 
     private String mainBackGroundImage;
 
-    @Column(length = 500)
+    @Column(length = 1000)
     private String storyLine;
 
-    @Column(length = 3000)
+    @Column(length = 5000)
     private String allStory;
 
     private LocalDate date;
