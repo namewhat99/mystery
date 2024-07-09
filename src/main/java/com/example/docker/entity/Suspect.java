@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+import java.time.LocalDate;
+
 @Entity
 public class Suspect {
 
@@ -11,9 +13,11 @@ public class Suspect {
     @GeneratedValue
     private Long id;
 
-    private String name;
-    private Integer age;
-    private String gender;
-    private String occupation;
-    private String trait;
+    private String suspectName;
+    private Integer suspectAge;
+    private String suspectGender;
+    private String suspectOccupation;
+    private String suspectTrait;
+
+    private LocalDate date;
 }
