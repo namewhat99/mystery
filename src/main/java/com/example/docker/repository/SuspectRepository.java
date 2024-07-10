@@ -13,4 +13,6 @@ public interface SuspectRepository extends JpaRepository<Suspect , Long> {
     public Suspect findSuspectByDateAndSuspectName(LocalDate date, String suspectName);
 
     public List<Suspect> findSuspectsByDate(LocalDate date);
+
+    public Suspect findSuspectById(Long id);
 }

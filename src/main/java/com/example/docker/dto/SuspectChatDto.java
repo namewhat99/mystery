@@ -1,14 +1,17 @@
 package com.example.docker.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SuspectChatDto {
 
     private String firstLine;
-    private ArrayList<String> chatList;
+    private List<String> chatList;
 }
