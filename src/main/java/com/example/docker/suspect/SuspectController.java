@@ -5,20 +5,25 @@ import com.example.docker.dto.SuspectChatDto;
 import com.example.docker.dto.SuspectChatRequestDto;
 import com.example.docker.dto.SuspectsInfoDto;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/suspects")
+@RequiredArgsConstructor
 public class SuspectController {
 
+    private final SuspectService suspectService;
     @GetMapping
     @Operation(summary = "용의자들 인적사항" , description = "각 용의자들의 인적사항을 반환한다. 데이터들 중 suspectNumber 는 나중에 다른 api 를 사용할때 그대로 전달해주기만 하면 될듯")
-    public ResponseDto<ArrayList<SuspectsInfoDto>> findSuspectsInfo(){
-        return new ResponseDto<ArrayList<SuspectsInfoDto>>(200 , "Good" , null);
+    public ResponseDto<List<SuspectsInfoDto>> findSuspectsInfo(){
+        List<SuspectsInfoDto> suspects = this.suspectService.findSuspects();
+        return new ResponseDto<List<SuspectsInfoDto>>(200 , "Good" , suspects);
     }
 
     @GetMapping(value = "{suspectNumber}")
