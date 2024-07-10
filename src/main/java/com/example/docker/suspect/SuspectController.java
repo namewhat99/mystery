@@ -6,6 +6,8 @@ import com.example.docker.dto.SuspectChatRequestDto;
 import com.example.docker.dto.SuspectsInfoDto;
 import com.example.docker.entity.Chat;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.MediaType;
@@ -30,6 +32,10 @@ public class SuspectController {
 
     @GetMapping(value = "{suspectNumber}")
     @Operation(summary = "용의자 심문하기" , description = "심문하기 첫 멘트 및 대화내용")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "대화내용 반환"),
+            @ApiResponse(responseCode = "400", description = "userId 혹은 suspectNumber 가 존재하지 않음")
+    })
     public ResponseDto<SuspectChatDto> getSuspectSpecificInfo(@PathVariable("suspectNumber") Integer suspectNumber , @RequestParam(value = "userId" , required = true) Integer userId){
         SuspectChatDto suspectChat = this.suspectService.findSuspectChat(suspectNumber, Long.valueOf(userId));
         return new ResponseDto<SuspectChatDto>(200 , "Good" , suspectChat);

@@ -3,6 +3,7 @@ package com.example.docker.evidence;
 import com.example.docker.dto.EvidenceInfoDto;
 import com.example.docker.entity.Evidence;
 import com.example.docker.repository.EvidenceRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class EvidenceService {
     public final EvidenceRepository evidenceRepository;
 
     public List<EvidenceInfoDto> getEvidenceList(){
+
         List<Evidence> evidencesByDate = this.evidenceRepository.findEvidencesByDate(LocalDate.now());
 
         List<EvidenceInfoDto> evidenceInfoDtoList = new ArrayList<EvidenceInfoDto>();

@@ -23,15 +23,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static ch.qos.logback.core.spi.ComponentTracker.DEFAULT_TIMEOUT;
 
 @Service
 @RequiredArgsConstructor
