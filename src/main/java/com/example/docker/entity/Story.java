@@ -31,8 +31,13 @@ public class Story {
     @Column(length = 1000)
     private String storyLine;
 
-    @Column(length = 5000)
-    private String allStory;
+    private String victimName;
+
+    private Integer victimAge;
+
+    private String victimGender;
+
+    private String victimOccupation;
 
     private LocalDate date;
 

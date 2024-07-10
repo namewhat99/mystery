@@ -11,6 +11,9 @@ public class StoryResourcePostDto {
     private String time;
     private String place;
     private String mainBackgroundImage;
-    private String allStory;
     private String storyLine;
+    private String victimName;
+    private Integer victimAge;
+    private String victimGender;
+    private String victimOccupation;
 }

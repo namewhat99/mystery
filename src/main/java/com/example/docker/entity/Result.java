@@ -37,6 +37,9 @@ public class Result {
     @Column(length = 1000)
     private String caseBackground;
 
+    @Column(length = 5000)
+    private String allStory;
+
     private LocalDate date;
 
     @PrePersist

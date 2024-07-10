@@ -36,8 +36,7 @@ public class SuspectController {
 
     @PostMapping(value = "{suspectNumber}/question" ,  produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @Operation(summary = "용의자 심문", description = "사용자의 심문에 대한 답변을 반환한다, 응답은 Stream 의 형태로 반환")
-    public ResponseDto<Flux<String>> getSuspectAnswer(@PathVariable("suspectNumber") Integer suspectNumber , @RequestBody SuspectChatRequestDto suspectChatRequestDto){
-
-        return new ResponseDto<Flux<String>>(200 , "Good" , null);
+    public Flux<String> getSuspectAnswer(@PathVariable("suspectNumber") Integer suspectNumber , @RequestBody SuspectChatRequestDto suspectChatRequestDto){
+        return this.suspectService.getSuspectAnswer(suspectNumber , suspectChatRequestDto);
     }
 }

@@ -95,7 +95,10 @@ public class ResourceService {
                     .place(storyResourcePostDto.getPlace())
                     .weather(storyResourcePostDto.getWeather())
                     .storyLine(storyResourcePostDto.getStoryLine())
-                    .allStory(storyResourcePostDto.getAllStory())
+                    .victimName(storyResourcePostDto.getVictimName())
+                    .victimGender(storyResourcePostDto.getVictimGender())
+                    .victimAge(storyResourcePostDto.getVictimAge())
+                    .victimOccupation(storyResourcePostDto.getVictimOccupation())
                     .mainBackGroundImage(storyResourcePostDto.getMainBackgroundImage())
                     .build();
 

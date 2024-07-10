@@ -33,6 +33,10 @@ public class MainService {
                 .weather(story.getWeather())
                 .time(story.getTime())
                 .place(story.getPlace())
+                .victimName(story.getVictimName())
+                .victimAge(story.getVictimAge())
+                .victimGender(story.getVictimGender())
+                .victimOccupation(story.getVictimOccupation())
                 .build();
     }
 

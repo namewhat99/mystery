@@ -14,4 +14,8 @@ public class MainPageContentDto {
     private String weather;
     private String place;
     private String time;
+    private String victimName;
+    private Integer victimAge;
+    private String victimGender;
+    private String victimOccupation;
 }
