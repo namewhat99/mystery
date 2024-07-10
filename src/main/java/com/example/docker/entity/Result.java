@@ -37,7 +37,7 @@ public class Result {
     @Column(length = 1000)
     private String caseBackground;
 
-    @Column(length = 5000)
+    @Column(length = 6000)
     private String allStory;
 
     private LocalDate date;

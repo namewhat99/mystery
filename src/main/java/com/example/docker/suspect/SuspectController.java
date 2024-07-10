@@ -4,6 +4,7 @@ import com.example.docker.dto.ResponseDto;
 import com.example.docker.dto.SuspectChatDto;
 import com.example.docker.dto.SuspectChatRequestDto;
 import com.example.docker.dto.SuspectsInfoDto;
+import com.example.docker.entity.Chat;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;

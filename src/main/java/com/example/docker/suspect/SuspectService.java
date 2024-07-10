@@ -1,5 +1,6 @@
 package com.example.docker.suspect;
 
+import com.example.docker.dto.ChatStreamResponseDto;
 import com.example.docker.dto.SuspectChatDto;
 import com.example.docker.dto.SuspectChatRequestDto;
 import com.example.docker.dto.SuspectsInfoDto;
@@ -11,6 +12,8 @@ import com.example.docker.repository.ChatRepository;
 import com.example.docker.repository.StoryRepository;
 import com.example.docker.repository.SuspectRepository;
 import com.example.docker.repository.UserRepository;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -18,11 +21,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static ch.qos.logback.core.spi.ComponentTracker.DEFAULT_TIMEOUT;
 
 @Service
 @RequiredArgsConstructor
@@ -58,6 +67,9 @@ public class SuspectService {
         Suspect suspect = this.suspectRepository.findSuspectById(Long.valueOf(suspectNumber));
         User user = this.userRepository.findUserById(userId);
 
+        System.out.println("user = " + user);
+        System.out.println("suspect = " + suspect);
+
         if(suspect == null) throw new IllegalArgumentException("없는 용의자 혹은 용의자 번호입니다");
         else if (user == null) throw new IllegalArgumentException("없는 유저 번호 혹은 유저입니다");
 
@@ -79,7 +91,17 @@ public class SuspectService {
         User user = this.userRepository.findUserById(userId);
         Story story = this.storyRepository.findStoryByDate(LocalDate.now());
 
+        Chat chat = Chat.builder()
+                .userId(userId)
+                .suspectNumber(suspectNumber.longValue())
+                .chatContent(suspectChatRequestDto.getQuestion())
+                .dateTime(LocalDateTime.now())
+                .build();
 
+        this.chatRepository.save(chat);
+
+        SseEmitter sseEmitter = new SseEmitter();
+        StringBuffer sb = new StringBuffer();
 
         if(suspect == null) throw new IllegalArgumentException("없는 용의자 혹은 용의자 번호입니다");
         else if (user == null) throw new IllegalArgumentException("없는 유저 번호 혹은 유저입니다");
@@ -168,11 +190,60 @@ public class SuspectService {
         return this.webClient.post()
                 .bodyValue(jsonRequestBody)
                 .accept(MediaType.TEXT_EVENT_STREAM)
-                .retrieve()
-                .bodyToFlux(String.class);
+                .exchangeToFlux(response -> response.bodyToFlux(String.class))
+                .doOnNext(data -> {
+                    try {
+                        if (data.equals("[DONE]")) {
+
+                            Chat userChat = Chat.builder()
+                                    .userId(userId)
+                                    .suspectNumber(suspectNumber.longValue())
+                                    .chatContent(sb.toString())
+                                    .dateTime(LocalDateTime.now())
+                                    .build();
+
+                            // 메세지 저장과 전송 종료
+                            this.chatRepository.save(userChat);
+                            sseEmitter.complete();
+                        }
+                        else{
+                            ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+                            ChatStreamResponseDto streamDto = mapper.readValue(data,ChatStreamResponseDto.class);
+                            ChatStreamResponseDto.Choice.Delta delta = streamDto.getChoices().get(0).getDelta();
+
+                            if (delta!=null && delta.getContent()!=null){
+                                sb.append(delta.getContent());
+                                sseEmitter.send(delta.getContent());
+                            }
+                        }
+                    } catch (IOException e) {
+                        throw new IllegalArgumentException();
+                    }
+                });
 
 
     }
+
+    private String saveResponse(String response){
+        Gson gson = new Gson();
+
+        // JSON 문자열을 JsonObject로 변환
+        JsonObject responseObject = gson.fromJson(response, JsonObject.class);
+
+        // choices 배열을 가져옴
+        JsonArray choicesArray = responseObject.getAsJsonArray("choices");
+
+        // 첫 번째 요소의 delta 객체를 가져옴
+        JsonObject deltaObject = choicesArray.get(0).getAsJsonObject().getAsJsonObject("delta");
+
+        // content 필드를 추출
+        String content = deltaObject.get("content").getAsString();
+
+        // content 출력
+        System.out.println(content);
+        return response;
+    }
+
 
 
 }
