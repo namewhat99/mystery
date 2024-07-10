@@ -14,4 +14,5 @@ public class ResultResourcePostDto {
     private String resultContent2;
     private String resultImage1;
     private String resultImage2;
+    private String allStory;
 }

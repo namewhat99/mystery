@@ -39,6 +39,7 @@ public class ResourceService {
                     .caseBackground(resultResourcePostDto.getCaseBackground())
                     .criminal(resultResourcePostDto.getCriminal())
                     .criminalSaying(resultResourcePostDto.getCriminalSaying())
+                    .allStory(resultResourcePostDto.getAllStory())
                     .build();
 
             this.resultRepository.save(result);
