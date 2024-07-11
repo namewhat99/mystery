@@ -80,7 +80,7 @@ public class SuspectService {
 
     }
 
-    public Flux<String> getSuspectAnswer(Integer suspectNumber , SuspectChatRequestDto suspectChatRequestDto){
+    public SseEmitter getSuspectAnswer(Integer suspectNumber , SuspectChatRequestDto suspectChatRequestDto){
         Long userId = suspectChatRequestDto.getUserId().longValue();
         String question = suspectChatRequestDto.getQuestion();
 
@@ -210,7 +210,7 @@ public class SuspectService {
 
                             if (delta!=null && delta.getContent()!=null){
                                 sb.append(delta.getContent());
-                                sseEmitter.send(delta.getContent());
+                                sseEmitter.send(delta.getContent()); // 클라이언트로 데이터를 보낸다.
                             }
                         }
                     } catch (IOException e) {
