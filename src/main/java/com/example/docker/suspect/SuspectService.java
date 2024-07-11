@@ -80,7 +80,7 @@ public class SuspectService {
 
     }
 
-    public SseEmitter getSuspectAnswer(Integer suspectNumber , SuspectChatRequestDto suspectChatRequestDto){
+    public Flux<String> getSuspectAnswer(Integer suspectNumber , SuspectChatRequestDto suspectChatRequestDto){
         Long userId = suspectChatRequestDto.getUserId().longValue();
         String question = suspectChatRequestDto.getQuestion();
 
@@ -97,7 +97,6 @@ public class SuspectService {
 
         this.chatRepository.save(chat);
 
-        SseEmitter sseEmitter = new SseEmitter();
         StringBuffer sb = new StringBuffer();
 
         if(suspect == null) throw new IllegalArgumentException("없는 용의자 혹은 용의자 번호입니다");
@@ -201,7 +200,6 @@ public class SuspectService {
 
                             // 메세지 저장과 전송 종료
                             this.chatRepository.save(userChat);
-                            sseEmitter.complete();
                         }
                         else{
                             ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
@@ -210,14 +208,12 @@ public class SuspectService {
 
                             if (delta!=null && delta.getContent()!=null){
                                 sb.append(delta.getContent());
-                                sseEmitter.send(delta.getContent()); // 클라이언트로 데이터를 보낸다.
                             }
                         }
                     } catch (IOException e) {
                         throw new IllegalArgumentException();
                     }
                 });
-
 
     }
 
