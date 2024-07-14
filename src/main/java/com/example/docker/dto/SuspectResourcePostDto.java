@@ -11,6 +11,7 @@ public class SuspectResourcePostDto {
     private Integer suspectAge;
     private String suspectGender;
     private String suspectOccupation;
+    private String suspectSpeciality;
     private String suspectTrait;
     private String suspectImage;
 }

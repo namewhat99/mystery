@@ -77,6 +77,7 @@ public class ResourceService {
                     .suspectOccupation(suspectResourcePostDto.getSuspectOccupation())
                     .suspectTrait(suspectResourcePostDto.getSuspectTrait())
                     .suspectImage(suspectResourcePostDto.getSuspectImage())
+                    .suspectSpeciality(suspectResourcePostDto.getSuspectSpeciality())
                     .build();
 
             this.suspectRepository.save(suspect);

@@ -18,6 +18,7 @@ public class SuspectsInfoDto {
     private Integer suspectAge;
     private String suspectOccupation;
     private String suspectInfo;
+    private String suspectSpeciality;
 
 
 }

@@ -51,6 +51,7 @@ public class SuspectService {
             suspectsInfoDto.setSuspectAge(suspect.getSuspectAge());
             suspectsInfoDto.setSuspectGender(suspect.getSuspectGender());
             suspectsInfoDto.setSuspectImageUrl(suspect.getSuspectImage());
+            suspectsInfoDto.setSuspectSpeciality(suspect.getSuspectSpeciality());
             suspectsInfoDto.setSuspectOccupation(suspect.getSuspectOccupation());
             suspectsInfoDtoList.add(suspectsInfoDto);
         }

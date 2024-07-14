@@ -28,6 +28,9 @@ public class Suspect {
     private String suspectOccupation;
 
     @Column(length = 1000)
+    private String suspectSpeciality;
+
+    @Column(length = 1000)
     private String suspectTrait;
 
     private String suspectImage;
