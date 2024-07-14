@@ -5,6 +5,7 @@ import com.example.docker.dto.EvidenceInfoDto;
 import com.example.docker.dto.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/evidences")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class EvidenceController {
 
     private final EvidenceService evidenceService;

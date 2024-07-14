@@ -14,6 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/resource")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ResourceController {
 
     private final S3Service s3Service;
