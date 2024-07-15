@@ -14,4 +14,7 @@ public class SuspectResourcePostDto {
     private String suspectSpeciality;
     private String suspectTrait;
     private String suspectImage;
+    private String evidenceName;
+    private String evidenceInfo;
+    private String evidenceImage;
 }

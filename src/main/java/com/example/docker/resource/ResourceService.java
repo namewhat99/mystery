@@ -48,28 +48,12 @@ public class ResourceService {
         }
     }
 
-    public void uploadEvidenceResource(EvidenceResourcePostDto evidenceResourcePostDto){
-
-        Integer evidenceCount = this.evidenceRepository.countEvidencesByDate(LocalDate.now());
-
-        if(evidenceCount < 4){
-            Evidence evidence = Evidence.builder()
-                    .evidenceName(evidenceResourcePostDto.getEvidenceName())
-                    .evidenceImageUrl(evidenceResourcePostDto.getEvidenceImage())
-                    .evidenceInfo(evidenceResourcePostDto.getEvidenceInfo())
-                    .build();
-
-            this.evidenceRepository.save(evidence);
-        }else{
-            throw new IllegalArgumentException("오늘의 증거 4개가 이미 추가되었습니다");
-        }
-    }
-
     public void uploadSuspectResource(SuspectResourcePostDto suspectResourcePostDto){
 
         Integer suspectCount = this.suspectRepository.countSuspectsByDate(LocalDate.now());
+        Integer evidenceCount = this.evidenceRepository.countEvidencesByDate(LocalDate.now());
 
-        if(suspectCount < 4){
+        if(suspectCount < 4 || evidenceCount < 4){
             Suspect suspect = Suspect.builder()
                     .suspectName(suspectResourcePostDto.getSuspectName())
                     .suspectAge(suspectResourcePostDto.getSuspectAge())
@@ -80,10 +64,17 @@ public class ResourceService {
                     .suspectSpeciality(suspectResourcePostDto.getSuspectSpeciality())
                     .build();
 
+            Evidence evidence = Evidence.builder()
+                    .evidenceName(suspectResourcePostDto.getEvidenceName())
+                    .evidenceImageUrl(suspectResourcePostDto.getEvidenceImage())
+                    .evidenceInfo(suspectResourcePostDto.getEvidenceInfo())
+                    .build();
+
             this.suspectRepository.save(suspect);
+            this.evidenceRepository.save(evidence);
 
         }else{
-            throw new IllegalArgumentException("오늘의 용의자 4명이 이미 추가되었습니다");
+            throw new IllegalArgumentException("오늘의 용의자 , 증거 4개가 이미 추가되었습니다");
         }
     }
 
