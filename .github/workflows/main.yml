@@ -61,5 +61,5 @@ jobs:
             sudo docker pull leegh963/docker
             sudo docker stop $(sudo docker ps -a -q)
             sudo docker rm $(sudo docker ps -a -q)
-            sudo docker run -d -p 8080:8080 -e DATABASE_URL=${{ secrets.DATABASE_URL }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e OPEN_API_APIKEY=${{ secrets.OPEN_API_APIKEY }} -e AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} -e AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} leegh963/docker
+            sudo docker run -d -p 8080:8080 -e TZ=Asia/Seoul -e DATABASE_URL=${{ secrets.DATABASE_URL }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e OPEN_API_APIKEY=${{ secrets.OPEN_API_APIKEY }} -e AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} -e AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} leegh963/docker
           EOF
