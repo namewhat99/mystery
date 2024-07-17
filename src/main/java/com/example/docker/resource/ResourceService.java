@@ -102,4 +102,11 @@ public class ResourceService {
         }
 
     }
+
+    public void deleteResources(){
+        this.storyRepository.deleteAll();
+        this.suspectRepository.deleteAll();
+        this.evidenceRepository.deleteAll();
+        this.resultRepository.deleteAll();
+    }
 }

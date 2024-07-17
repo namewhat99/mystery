@@ -51,7 +51,11 @@ public class ResourceController {
         return new ResponseDto<>(200 , "good" , null);
     }
 
-
+    @DeleteMapping
+    public ResponseDto<String> deleteResources(){
+        this.resourceService.deleteResources();
+        return new ResponseDto<>(200 , "good" , null);
+    }
 
     private String uploadFile(String base64EncodedFile){
         try {
