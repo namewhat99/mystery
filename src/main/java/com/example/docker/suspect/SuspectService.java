@@ -81,6 +81,8 @@ public class SuspectService {
 
         Suspect suspect = this.suspectRepository.findSuspectById(Long.valueOf(suspectNumber));
         User user = this.userRepository.findUserById(userId);
+        user.increaseUsedChance();
+
         Story story = this.storyRepository.findStoryByDate(LocalDate.now());
 
         Chat chat = Chat.builder()

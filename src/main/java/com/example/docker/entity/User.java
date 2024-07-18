@@ -29,6 +29,10 @@ public class User {
 
     private LocalDate date;
 
+    public void increaseUsedChance(){
+        this.usedChance += 1;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.date = LocalDate.now();
