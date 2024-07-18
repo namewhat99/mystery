@@ -38,7 +38,8 @@ public class UserService {
         User user = this.userRepository.findUserById(userId);
 
         if(user == null) throw new EntityNotFoundException("해당 id 를 갖는 유저가 없습니다");
-        else return user.getUsedChance() <= 10;
+        else if(user.getUsedChance() > 10) return false;
+        else return true;
 
     }
 }
