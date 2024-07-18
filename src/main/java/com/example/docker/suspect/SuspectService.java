@@ -115,8 +115,8 @@ public class SuspectService {
 
 
 
-        String prompt = todayStory + "이게 추리 게임에 대한 전체적인 내용이야" + "그리고 현재 용의자 중 " + suspect.getSuspectName() + " 에 대해서 심문을 진행하고 있어"
-               + question + "이 질문에 대해" + suspect.getSuspectName() + "의 입장에서 200자 이내로 대답해줘" + prevChat + "이건 이전 대화 내역이야 , 추리게임과 관련 없는 질문이면 대답을 거부해도 되고 관련 있다고 판단되면 딱 용의자의 변론만 말하고 다른 어구는 붙이지 말아줘";
+        String prompt = todayStory + "이게 추리 게임에 대한 전체적인 내용이야" + "그리고 현재 용의자 중 " + suspect.getSuspectName() + " 에 대해서 심문을 진행하고 있어" + prevChat + "이건 이전 대화 내역이야. 이 내용들을 참고해서"
+               + question + "이 질문에 대해" + suspect.getSuspectName() + " 의 입장이라면 뭐라고 변론을 할지 200자 이내로 대답해줘" + "추리게임과 관련 없는 질문이면 대답을 거부해도 되고 관련 있다고 판단되면 딱 용의자의 변론만 말하고 다른 어구는 붙이지 말아줘. 질문을 굳이 다시 나한테 알려 줄 필요 없고 범인이 누구이지도 밝히면 안돼";
 
         Gson gson = new Gson();
 
