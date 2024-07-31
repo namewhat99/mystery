@@ -190,6 +190,65 @@ public class SuspectService {
         return response;
     }
 
+    public Flux<String> getSuspectAnswerGetType(Integer suspectNumber , String question){
+        Long userId = suspectNumber.longValue();
+
+
+
+
+        StringBuffer sb = new StringBuffer();
+
+        String prompt = question + "이 질문에 대답해줘";
+
+        Gson gson = new Gson();
+
+        // JSON 객체 생성
+        JsonObject requestBody = new JsonObject();
+        requestBody.addProperty("model", "gpt-4o");
+        requestBody.addProperty("stream" , true);
+
+        JsonArray messages = new JsonArray();
+        JsonObject message = new JsonObject();
+        message.addProperty("role", "user");
+        message.addProperty("content", prompt);
+        messages.add(message);
+
+        requestBody.add("messages", messages);
+
+        String jsonRequestBody = gson.toJson(requestBody);
+        // Flux 의 동작방식에 대해 찾아보기
+
+        return this.webClient.post()
+                .bodyValue(jsonRequestBody)
+                .accept(MediaType.TEXT_EVENT_STREAM)
+                .exchangeToFlux(response -> response.bodyToFlux(String.class))
+                .doOnNext(data -> {
+                    try {
+                        if (data.equals("[DONE]")) {
+
+                            Chat userChat = Chat.builder()
+                                    .userId(userId)
+                                    .suspectNumber(suspectNumber.longValue())
+                                    .chatContent(sb.toString())
+                                    .dateTime(LocalDateTime.now())
+                                    .build();
+                        }
+                        else{
+                            ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+                            ChatStreamResponseDto streamDto = mapper.readValue(data,ChatStreamResponseDto.class);
+                            ChatStreamResponseDto.Choice.Delta delta = streamDto.getChoices().get(0).getDelta();
+
+                            if (delta!=null && delta.getContent()!=null){
+                                sb.append(delta.getContent());
+                            }
+                        }
+                    } catch (IOException e) {
+                        throw new IllegalArgumentException();
+                    }
+                });
+
+    }
+
 
 
 }
