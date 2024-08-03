@@ -190,17 +190,16 @@ public class SuspectService {
         return response;
     }
 
-    public Flux<String> getSuspectAnswerGetType(Integer suspectNumber , String question){
-        Long userId = suspectNumber.longValue();
+    public Flux<String> getSuspectAnswerGetType(Integer suspectNumber , Integer userId , String question){
 
         Suspect suspect = this.suspectRepository.findSuspectById(Long.valueOf(suspectNumber));
-        User user = this.userRepository.findUserById(userId);
+        User user = this.userRepository.findUserById(userId.longValue());
         user.increaseUsedChance();
 
         Story story = this.storyRepository.findStoryByDate(LocalDate.now());
 
         Chat chat = Chat.builder()
-                .userId(userId)
+                .userId(userId.longValue())
                 .suspectNumber(suspectNumber.longValue())
                 .chatContent(question)
                 .dateTime(LocalDateTime.now())
@@ -208,7 +207,7 @@ public class SuspectService {
 
         this.chatRepository.save(chat);
 
-        List<Chat> chats = this.chatRepository.findChatsByUserIdAndSuspectNumberOrderByIdAsc(userId, Long.valueOf(suspectNumber));
+        List<Chat> chats = this.chatRepository.findChatsByUserIdAndSuspectNumberOrderByIdAsc(userId.longValue(), Long.valueOf(suspectNumber));
         List<String> chatList = new ArrayList<>();
 
         for (Chat item : chats) {
@@ -259,7 +258,7 @@ public class SuspectService {
                         if (data.equals("[DONE]")) {
 
                             Chat userChat = Chat.builder()
-                                    .userId(userId)
+                                    .userId(userId.longValue())
                                     .suspectNumber(suspectNumber.longValue())
                                     .chatContent(sb.toString())
                                     .dateTime(LocalDateTime.now())
