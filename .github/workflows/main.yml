@@ -55,7 +55,7 @@ jobs:
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: |
+        run:
           ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_INSTANCE_IP }} << 'EOF' 
             sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
             sudo docker pull leegh963/docker
