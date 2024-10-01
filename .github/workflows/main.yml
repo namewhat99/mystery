@@ -55,12 +55,11 @@ jobs:
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_HUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run:
+        run: |
           ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_INSTANCE_IP }} << 'EOF' 
             sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
             sudo docker pull leegh963/docker
             sudo docker ps -a -q | grep -q . && docker stop -f $(docker ps -a -q)
             sudo docker ps -a -q | grep -q . && docker rm -f $(docker ps -a -q)
-            sudo docker run --name myapp -d -p 8080:8080 -v /etc/localtime:/etc/localtime:ro -e TZ=Asia/Seoul -e DATABASE_URL=${{ secrets.DATABASE_URL }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e OPEN_API_APIKEY=${{ secrets.OPEN_API_APIKEY }} -e AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} -e AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} leegh963/docker || true
 #            sudo docker run -d -p 8080:8080 -e TZ=Asia/Seoul -e DATABASE_URL=${{ secrets.DATABASE_URL }} -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} -e OPEN_API_APIKEY=${{ secrets.OPEN_API_APIKEY }} -e AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} -e AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} leegh963/docker
           EOF
