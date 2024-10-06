@@ -9,6 +9,7 @@ import com.example.docker.repository.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +22,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    @Operation(summary = "닉네임 등록" , description = "닉네임 중복이면 400 에러 던짐")
+    @Operation(summary = "유저 session id 발급" , description = "메인페이지에서 유저 session id 발급")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "굳"),
             @ApiResponse(responseCode = "400", description = "닉네임 중복")
     })
-    public ResponseDto<UserAddDto> checkNicknameDuplicate(@RequestBody UserNicknameDto userNicknameDto){
-        User user = this.userService.addDailyUser(userNicknameDto.getNickname());
-        return new ResponseDto<>(200 , "Good" , new UserAddDto(user.getId()));
+    public ResponseDto<UserAddDto> checkNicknameDuplicate(HttpServletRequest httpServletRequest){
+        String sessionId = this.userService.addDailyUser(httpServletRequest);
+        return new ResponseDto<>(200 , "Good" , new UserAddDto(sessionId));
     }
 
     @GetMapping("/chance")

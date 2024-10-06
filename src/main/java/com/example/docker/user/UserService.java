@@ -19,7 +19,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User addDailyUser(HttpServletRequest request){
+    public String addDailyUser(HttpServletRequest request){
 
         HttpSession sessionId = request.getSession(false);
 
@@ -30,11 +30,11 @@ public class UserService {
                     .usedChance(0)
                     .build();
 
-            return this.userRepository.save(user);
+            return this.userRepository.save(user).getSessionId();
 
         }else{
 
-            return null;
+            return String.valueOf(sessionId);
         }
     }
 

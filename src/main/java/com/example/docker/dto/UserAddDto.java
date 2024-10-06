@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserAddDto {
 
-    private Long userId;
+    private String userId;
 }

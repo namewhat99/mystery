@@ -23,7 +23,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    private String nickName;
+    private String sessionId;
 
     private Integer usedChance;
 
