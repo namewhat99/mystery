@@ -28,8 +28,8 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "닉네임 중복")
     })
     public ResponseDto<UserAddDto> checkNicknameDuplicate(HttpServletRequest httpServletRequest){
-        String sessionId = this.userService.addDailyUser(httpServletRequest);
-        return new ResponseDto<>(200 , "Good" , new UserAddDto(sessionId));
+        Long userId = this.userService.addDailyUser(httpServletRequest);
+        return new ResponseDto<>(200 , "Good" , new UserAddDto(userId));
     }
 
     @GetMapping("/chance")

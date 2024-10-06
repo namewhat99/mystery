@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public interface UserRepository extends JpaRepository<User , Long> {
 
-    public Boolean existsUserByNickNameAndDate(String nickName, LocalDate date);
+    public Boolean existsUserBySessionIdAndDate(String nickName, LocalDate date);
 
     public User findUserById(Long id);
 }
