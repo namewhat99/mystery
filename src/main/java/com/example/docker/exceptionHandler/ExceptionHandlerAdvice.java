@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.DispatcherServlet;
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
@@ -27,3 +28,4 @@ public class ExceptionHandlerAdvice {
         return ResponseEntity.status(400).body(responseDto);
     }
 }
+
