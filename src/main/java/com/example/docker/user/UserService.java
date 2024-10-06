@@ -25,7 +25,7 @@ public class UserService {
 
         if(sessionId == null){
             User user = User.builder()
-                    .sessionId(String.valueOf(request.getSession(true)))
+                    .sessionId(String.valueOf(request.getSession(true).getId()))
                     .date(LocalDate.now())
                     .usedChance(0)
                     .build();
