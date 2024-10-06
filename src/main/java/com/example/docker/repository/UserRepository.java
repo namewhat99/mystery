@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User , Long> {
     public Boolean existsUserBySessionIdAndDate(String nickName, LocalDate date);
 
     public User findUserById(Long id);
+
+    public User findUserBySessionId(String sessionId);
 }

@@ -32,10 +32,10 @@ public class UserService {
 
             return this.userRepository.save(user).getId();
 
-        }else{
-
-            return null;
         }
+
+        return this.userRepository.findUserBySessionId(sessionId.getId()).getId();
+
     }
 
     public Boolean checkUserChanceLeft(Long userId){
