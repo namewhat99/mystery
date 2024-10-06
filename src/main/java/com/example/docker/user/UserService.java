@@ -4,6 +4,8 @@ import ch.qos.logback.core.util.Loader;
 import com.example.docker.entity.User;
 import com.example.docker.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
@@ -17,19 +19,22 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User addDailyUser(String nickname){
+    public User addDailyUser(HttpServletRequest request){
 
-        Boolean isExists = this.userRepository.existsUserByNickNameAndDate(nickname , LocalDate.now());
+        HttpSession sessionId = request.getSession(false);
 
-        if(isExists) throw new IllegalArgumentException("닉네임이 이미 존재합니다");
-        else {
+        if(sessionId == null){
             User user = User.builder()
-                    .nickName(nickname)
+                    .sessionId(String.valueOf(request.getSession(true)))
                     .date(LocalDate.now())
                     .usedChance(0)
                     .build();
 
             return this.userRepository.save(user);
+
+        }else{
+
+            return null;
         }
     }
 
