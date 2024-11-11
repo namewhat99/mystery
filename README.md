@@ -74,3 +74,4 @@ GPT 응답 stream 형태로 전달 → 실시간으로 소통하는 챗봇 구�
 ## 🛠️ 리팩토링 및 회의록
 ### [1주차 회의록](https://github.com/namewhat99/mystery/wiki/1%EC%A3%BC%EC%B0%A8-%ED%9A%8C%EC%9D%98%EB%A1%9D)
 ### [1주차 진행상황](https://github.com/namewhat99/mystery/wiki/1%EC%A3%BC%EC%B0%A8-%EC%A7%84%ED%96%89%EC%82%AC%ED%95%AD-%5BBE%5D)
+### [2주차 진행상황](https://github.com/namewhat99/mystery/wiki/2%EC%A3%BC%EC%B0%A8-%EC%A7%84%ED%96%89%EC%83%81%ED%99%A9-(%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%ED%95%91%EA%B1%B0%ED%94%84%EB%A6%B0%ED%8C%85))
